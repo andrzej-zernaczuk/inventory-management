@@ -7,7 +7,7 @@
             <h3 class="modal-title">Inventory Shortage Details</h3>
             <button class="close-button" @click="close">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
               </svg>
             </button>
           </div>
@@ -16,17 +16,15 @@
             <div class="shortage-header">
               <div class="shortage-icon">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                  <path d="M24 8L24 28M24 34L24 36" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                  <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="3"/>
+                  <path d="M24 8L24 28M24 34L24 36" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+                  <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="3" />
                 </svg>
               </div>
               <div class="shortage-title-section">
                 <h4 class="item-name">{{ translateProductName(backlogItem.item_name) }}</h4>
                 <div class="item-sku">SKU: {{ backlogItem.item_sku }}</div>
               </div>
-              <span class="priority-badge" :class="backlogItem.priority">
-                {{ backlogItem.priority }} Priority
-              </span>
+              <span class="priority-badge" :class="backlogItem.priority"> {{ backlogItem.priority }} Priority </span>
             </div>
 
             <div class="shortage-summary">
@@ -93,12 +91,12 @@ const { translateProductName } = useI18n()
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    default: false
+    default: false,
   },
   backlogItem: {
     type: Object,
-    default: null
-  }
+    default: null,
+  },
 })
 
 const emit = defineEmits(['close'])
@@ -118,7 +116,7 @@ const formatDate = (dateString) => {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   })
 }
 </script>
