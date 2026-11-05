@@ -14,7 +14,9 @@
             <div class="trend-icon">↑</div>
             <div>
               <div class="trend-label">{{ t('demand.increasingDemand') }}</div>
-              <div class="trend-count">{{ t('demand.itemsCount', { count: getForecastsByTrend('increasing').length }) }}</div>
+              <div class="trend-count">
+                {{ t('demand.itemsCount', { count: getForecastsByTrend('increasing').length }) }}
+              </div>
             </div>
           </div>
           <div class="trend-items">
@@ -33,7 +35,9 @@
             <div class="trend-icon">→</div>
             <div>
               <div class="trend-label">{{ t('demand.stableDemand') }}</div>
-              <div class="trend-count">{{ t('demand.itemsCount', { count: getForecastsByTrend('stable').length }) }}</div>
+              <div class="trend-count">
+                {{ t('demand.itemsCount', { count: getForecastsByTrend('stable').length }) }}
+              </div>
             </div>
           </div>
           <div class="trend-items">
@@ -52,7 +56,9 @@
             <div class="trend-icon">↓</div>
             <div>
               <div class="trend-label">{{ t('demand.decreasingDemand') }}</div>
-              <div class="trend-count">{{ t('demand.itemsCount', { count: getForecastsByTrend('decreasing').length }) }}</div>
+              <div class="trend-count">
+                {{ t('demand.itemsCount', { count: getForecastsByTrend('decreasing').length }) }}
+              </div>
             </div>
           </div>
           <div class="trend-items">
@@ -86,14 +92,16 @@
             </thead>
             <tbody>
               <tr v-for="forecast in forecasts" :key="forecast.id">
-                <td><strong>{{ forecast.item_sku }}</strong></td>
+                <td>
+                  <strong>{{ forecast.item_sku }}</strong>
+                </td>
                 <td>{{ forecast.item_name }}</td>
                 <td>{{ forecast.current_demand }}</td>
-                <td><strong>{{ forecast.forecasted_demand }}</strong></td>
                 <td>
-                  <span :style="{ color: getChangeColor(forecast) }">
-                    {{ getChangePercent(forecast) }}%
-                  </span>
+                  <strong>{{ forecast.forecasted_demand }}</strong>
+                </td>
+                <td>
+                  <span :style="{ color: getChangeColor(forecast) }"> {{ getChangePercent(forecast) }}% </span>
                 </td>
                 <td>
                   <span :class="['badge', forecast.trend]">
@@ -135,8 +143,8 @@ export default {
       }
 
       // Get SKUs of items that match the filters
-      const validSkus = new Set(inventoryItems.value.map(item => item.sku))
-      return allForecasts.value.filter(f => validSkus.has(f.item_sku))
+      const validSkus = new Set(inventoryItems.value.map((item) => item.sku))
+      return allForecasts.value.filter((f) => validSkus.has(f.item_sku))
     })
 
     const loadForecasts = async () => {
@@ -148,8 +156,8 @@ export default {
           api.getDemandForecasts(),
           api.getInventory({
             warehouse: filters.warehouse,
-            category: filters.category
-          })
+            category: filters.category,
+          }),
         ])
 
         allForecasts.value = forecastsData
@@ -167,11 +175,13 @@ export default {
     })
 
     const getForecastsByTrend = (trend) => {
-      return forecasts.value.filter(f => f.trend === trend)
+      return forecasts.value.filter((f) => f.trend === trend)
     }
 
     const getChangePercent = (forecast) => {
-      const change = ((forecast.forecasted_demand - forecast.current_demand) / forecast.current_demand * 100).toFixed(1)
+      const change = (((forecast.forecasted_demand - forecast.current_demand) / forecast.current_demand) * 100).toFixed(
+        1,
+      )
       return change > 0 ? `+${change}` : change
     }
 
@@ -217,9 +227,9 @@ export default {
       getForecastsByTrend,
       getChangePercent,
       getChangeColor,
-      translatePeriod
+      translatePeriod,
     }
-  }
+  },
 }
 </script>
 

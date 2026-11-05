@@ -50,11 +50,7 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">{{ t('restocking.recommended') }} ({{ items.length }})</h3>
-          <button
-            class="place-order-btn"
-            :disabled="items.length === 0 || submitting"
-            @click="placeOrder"
-          >
+          <button class="place-order-btn" :disabled="items.length === 0 || submitting" @click="placeOrder">
             {{ submitting ? t('restocking.submitting') : t('restocking.placeOrder') }}
           </button>
         </div>
@@ -75,7 +71,9 @@
             </thead>
             <tbody>
               <tr v-for="item in items" :key="item.sku">
-                <td><strong>{{ item.sku }}</strong></td>
+                <td>
+                  <strong>{{ item.sku }}</strong>
+                </td>
                 <td>{{ translateProductName(item.name) }}</td>
                 <td>
                   <span :class="['badge', item.trend]">{{ trendLabel(item.trend) }}</span>
@@ -86,7 +84,9 @@
                   <span v-if="item.quantity < item.shortfall" class="partial">(partial)</span>
                 </td>
                 <td class="num">{{ unitMoney(item.unit_cost) }}</td>
-                <td class="num"><strong>{{ money(item.total_cost) }}</strong></td>
+                <td class="num">
+                  <strong>{{ money(item.total_cost) }}</strong>
+                </td>
                 <td class="num">{{ t('restocking.days', { days: item.lead_time_days }) }}</td>
               </tr>
             </tbody>
@@ -167,12 +167,10 @@ export default {
       confirmation.value = null
       clearTimeout(debounceTimer) // submit what is currently displayed
       try {
-        const order = await api.submitRestockingOrder(
-          items.value.map(i => ({ sku: i.sku, quantity: i.quantity }))
-        )
+        const order = await api.submitRestockingOrder(items.value.map((i) => ({ sku: i.sku, quantity: i.quantity })))
         confirmation.value = t('restocking.orderPlaced', {
           id: order.id,
-          days: order.lead_time_days
+          days: order.lead_time_days,
         })
         await refresh()
       } catch (err) {
@@ -198,11 +196,27 @@ export default {
     onBeforeUnmount(() => clearTimeout(debounceTimer))
 
     return {
-      t, loading, loadError, submitError, refreshError, confirmation, submitting,
-      budget, maxBudget, totalCost, items, remaining, step,
-      money, unitMoney, trendLabel, translateProductName, onSliderInput, placeOrder
+      t,
+      loading,
+      loadError,
+      submitError,
+      refreshError,
+      confirmation,
+      submitting,
+      budget,
+      maxBudget,
+      totalCost,
+      items,
+      remaining,
+      step,
+      money,
+      unitMoney,
+      trendLabel,
+      translateProductName,
+      onSliderInput,
+      placeOrder,
     }
-  }
+  },
 }
 </script>
 

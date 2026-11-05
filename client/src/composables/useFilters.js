@@ -9,10 +9,12 @@ const selectedStatus = ref('all')
 export function useFilters() {
   // Check if any filters are active
   const hasActiveFilters = computed(() => {
-    return selectedPeriod.value !== 'all' ||
-           selectedLocation.value !== 'all' ||
-           selectedCategory.value !== 'all' ||
-           selectedStatus.value !== 'all'
+    return (
+      selectedPeriod.value !== 'all' ||
+      selectedLocation.value !== 'all' ||
+      selectedCategory.value !== 'all' ||
+      selectedStatus.value !== 'all'
+    )
   })
 
   // Reset all filters to default
@@ -28,7 +30,7 @@ export function useFilters() {
     const filters = {
       warehouse: selectedLocation.value,
       category: selectedCategory.value,
-      status: selectedStatus.value
+      status: selectedStatus.value,
     }
 
     // Map period to month format for API
@@ -51,6 +53,6 @@ export function useFilters() {
 
     // Methods
     resetFilters,
-    getCurrentFilters
+    getCurrentFilters,
   }
 }
