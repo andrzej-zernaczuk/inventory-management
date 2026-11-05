@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: modal-duplication
+expected_outcome: |
+  A reuse report naming the duplicated modal logic and helpers (close handler, formatDate, stock-status helpers), checking existing utils, with a concrete shared home for each.

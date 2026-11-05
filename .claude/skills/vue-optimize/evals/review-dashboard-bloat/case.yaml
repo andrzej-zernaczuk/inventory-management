@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: review-dashboard-bloat
+expected_outcome: |
+  A ranked report on Dashboard.vue with concrete file:line findings on size/structure and performance, and no files modified.
