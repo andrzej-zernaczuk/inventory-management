@@ -35,5 +35,11 @@ recent_transactions = load_json_file('transactions.json')
 # Load purchase orders
 purchase_orders = load_json_file('purchase_orders.json')
 
+# Supplier cost and lead time per forecasted SKU (demand_forecasts.json has neither)
+restocking_catalog = {row['sku']: row for row in load_json_file('restocking_catalog.json')}
+
+# Restocking orders submitted at runtime; held in memory only, cleared on restart
+submitted_restocking_orders = []
+
 # All data is now loaded from JSON files in the data/ directory
 # This allows for easier maintenance and updates of the sample data

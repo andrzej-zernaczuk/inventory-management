@@ -6,6 +6,7 @@ export default {
     orders: '注文',
     finance: '財務',
     demandForecast: '需要予測',
+    restocking: '補充発注',
     companyName: '触媒コンポーネンツ',
     subtitle: '在庫管理システム'
   },
@@ -214,6 +215,45 @@ export default {
     increasing: '増加',
     stable: '安定',
     decreasing: '減少'
+  },
+
+  // Restocking
+  restocking: {
+    title: '補充発注',
+    description: '予算を選択し、優先度の高い不足分の発注を行います',
+    budget: '予算',
+    spend: '推奨支出額',
+    remaining: '残額',
+    maxBudget: '全量カバーの費用',
+    recommended: '推奨品目',
+    empty: 'この予算では補充対象がありません',
+    placeOrder: '発注する',
+    submitting: '送信中...',
+    orderPlaced: '注文 {id} を発注しました。リードタイム: {days}日',
+    submitFailed: '発注に失敗しました: ',
+    loadFailed: '推奨の読み込みに失敗しました: ',
+    days: '{days}日',
+    table: {
+      sku: 'SKU',
+      name: '名称',
+      trend: 'トレンド',
+      shortfall: '不足数',
+      quantity: '発注数',
+      unitCost: '単価',
+      lineTotal: '小計',
+      leadTime: 'リードタイム'
+    },
+    submitted: {
+      title: '発注済み注文',
+      empty: '発注済みの補充注文はありません',
+      orderId: '注文ID',
+      submittedAt: '発注日',
+      items: '品目',
+      total: '合計金額',
+      leadTime: 'リードタイム（日）',
+      expectedDelivery: '納品予定日',
+      loadFailed: '発注済み注文の読み込みに失敗しました: '
+    }
   },
 
   // Priority
