@@ -6,6 +6,7 @@ export default {
     orders: 'Orders',
     finance: 'Finance',
     demandForecast: 'Demand Forecast',
+    restocking: 'Restocking',
     companyName: 'Catalyst Components',
     subtitle: 'Inventory Management System'
   },
@@ -214,6 +215,45 @@ export default {
     increasing: 'increasing',
     stable: 'stable',
     decreasing: 'decreasing'
+  },
+
+  // Restocking
+  restocking: {
+    title: 'Restocking',
+    description: 'Choose a budget and place a purchase order for the highest-priority shortfalls',
+    budget: 'Budget',
+    spend: 'Recommended Spend',
+    remaining: 'Remaining',
+    maxBudget: 'Full coverage cost',
+    recommended: 'Recommended Items',
+    empty: 'No items to restock at this budget',
+    placeOrder: 'Place Order',
+    submitting: 'Submitting...',
+    orderPlaced: 'Order {id} placed. Lead time: {days} days.',
+    submitFailed: 'Failed to place order: ',
+    loadFailed: 'Failed to load recommendations: ',
+    days: '{days} days',
+    table: {
+      sku: 'SKU',
+      name: 'Name',
+      trend: 'Trend',
+      shortfall: 'Shortfall',
+      quantity: 'Order Qty',
+      unitCost: 'Unit Cost',
+      lineTotal: 'Line Total',
+      leadTime: 'Lead Time'
+    },
+    submitted: {
+      title: 'Submitted Orders',
+      empty: 'No restocking orders submitted yet',
+      orderId: 'Order ID',
+      submittedAt: 'Submitted',
+      items: 'Items',
+      total: 'Total Cost',
+      leadTime: 'Lead Time (days)',
+      expectedDelivery: 'Expected Delivery',
+      loadFailed: 'Failed to load submitted orders: '
+    }
   },
 
   // Priority

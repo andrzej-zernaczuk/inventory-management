@@ -27,6 +27,38 @@
         </div>
       </div>
 
+      <div class="card submitted-orders">
+        <div class="card-header">
+          <h3 class="card-title">{{ t('restocking.submitted.title') }} ({{ submittedOrders.length }})</h3>
+        </div>
+        <div v-if="submittedError" class="error">{{ submittedError }}</div>
+        <div v-else-if="submittedOrders.length === 0" class="empty-state">{{ t('restocking.submitted.empty') }}</div>
+        <div v-else class="table-container">
+          <table class="submitted-table">
+            <thead>
+              <tr>
+                <th>{{ t('restocking.submitted.orderId') }}</th>
+                <th>{{ t('restocking.submitted.submittedAt') }}</th>
+                <th>{{ t('restocking.submitted.items') }}</th>
+                <th>{{ t('restocking.submitted.total') }}</th>
+                <th>{{ t('restocking.submitted.leadTime') }}</th>
+                <th>{{ t('restocking.submitted.expectedDelivery') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="so in submittedOrders" :key="so.id">
+                <td><strong>{{ so.id }}</strong></td>
+                <td>{{ formatDate(so.submitted_at) }}</td>
+                <td>{{ summarizeItems(so.items) }}</td>
+                <td><strong>{{ formatMoney(so.total_cost) }}</strong></td>
+                <td>{{ so.lead_time_days }}</td>
+                <td>{{ formatDate(so.expected_delivery) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">{{ t('orders.allOrders') }} ({{ orders.length }})</h3>
@@ -83,6 +115,7 @@ import { ref, onMounted, watch, computed } from 'vue'
 import { api } from '../api'
 import { useFilters } from '../composables/useFilters'
 import { useI18n } from '../composables/useI18n'
+import { formatCurrency } from '../utils/currency'
 
 export default {
   name: 'Orders',
@@ -104,6 +137,27 @@ export default {
       selectedStatus,
       getCurrentFilters
     } = useFilters()
+
+    const submittedOrders = ref([])
+    const submittedError = ref(null)
+
+    const loadSubmittedOrders = async () => {
+      try {
+        submittedError.value = null
+        submittedOrders.value = await api.getSubmittedRestockingOrders()
+      } catch (err) {
+        submittedError.value = t('restocking.submitted.loadFailed') + err.message
+      }
+    }
+
+    const formatMoney = (amount) => formatCurrency(amount, currentCurrency.value)
+
+    // Short summary: first two item names plus a count of the rest
+    const summarizeItems = (items) => {
+      const names = items.slice(0, 2).map(i => `${translateProductName(i.name)} x${i.quantity}`)
+      const rest = items.length - 2
+      return rest > 0 ? `${names.join(', ')} +${rest}` : names.join(', ')
+    }
 
     const loadOrders = async () => {
       try {
@@ -153,13 +207,20 @@ export default {
       })
     }
 
-    onMounted(loadOrders)
+    onMounted(() => {
+      loadOrders()
+      loadSubmittedOrders()
+    })
 
     return {
       t,
       loading,
       error,
       orders,
+      submittedOrders,
+      submittedError,
+      formatMoney,
+      summarizeItems,
       getOrdersByStatus,
       getOrderStatusClass,
       formatDate,
@@ -172,6 +233,16 @@ export default {
 </script>
 
 <style scoped>
+.submitted-orders {
+  margin-bottom: 1.5rem;
+}
+
+.empty-state {
+  padding: 1.5rem;
+  text-align: center;
+  color: #64748b;
+}
+
 /* Fixed table layout to prevent column shifting */
 .orders-table {
   table-layout: fixed;
