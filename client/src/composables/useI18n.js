@@ -4,7 +4,7 @@ import ja from '../locales/ja'
 
 const translations = {
   en,
-  ja
+  ja,
 }
 
 // Load saved locale from localStorage, default to 'en'
@@ -69,7 +69,7 @@ export function useI18n() {
   const localeName = computed(() => {
     const names = {
       en: 'English',
-      ja: '日本語'
+      ja: '日本語',
     }
     return names[currentLocale.value] || currentLocale.value
   })
@@ -96,8 +96,8 @@ export function useI18n() {
       // Handle city names
       const cityMap = {
         'San Francisco': 'サンフランシスコ',
-        'London': 'ロンドン',
-        'Tokyo': '東京'
+        London: 'ロンドン',
+        Tokyo: '東京',
       }
 
       if (cityMap[warehouseName]) {
@@ -123,6 +123,6 @@ export function useI18n() {
     localeName,
     translateProductName,
     translateCustomerName,
-    translateWarehouse
+    translateWarehouse,
   }
 }
